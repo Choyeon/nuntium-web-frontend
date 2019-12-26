@@ -1,7 +1,7 @@
 # ASSETS
 
-**This directory is not required, you can delete it if you don't want to use it.**
+**该目录不是必需的，如果您不想使用它，可以将其删除.**
 
-This directory contains your un-compiled assets such as LESS, SASS, or JavaScript.
+该目录包含您的未编译资源，例如LESS，SASS或JavaScript。
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/assets#webpacked).
+有关此目录用法的更多信息，请参见 [文档](https://nuxtjs.org/guide/assets#webpacked).
