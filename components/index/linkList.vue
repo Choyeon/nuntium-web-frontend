@@ -1,51 +1,46 @@
 <template>
-  <div class="tag">
-    <br>
+  <div class="link">
     <Card>
       <p slot="title">
-        <Icon type="md-pricetags" color="#fd7792"/>
-        标签
+        <Icon type="md-link" color="#fd7792"/>
+        友情链接
       </p>
-      <p v-show="loading">
-        <Tag class="skeleton-tag" v-for="i in skeleton" :key="i"></Tag>
-      </p>
-      <div class="wrapper">
-        <p v-show="!loading">
-          <tag color="primary" v-for="tag in tagList" :key="tag.id">{{tag.name}}</tag>
-        </p>
-      </div>
+      <CellGroup v-show="loading">
+        <Cell class="skeleton-link" v-for="i in skeleton" :key="i"/>
+      </CellGroup>
+      <CellGroup v-show="!loading">
+        <Cell class="wrapper" :to="link.herf" :title="link.title" v-for="link in linkList" :key="linkList.id"/>
+      </CellGroup>
     </Card>
   </div>
 </template>
+
 <script>
   export default {
-    name: "TagCard",
+    name: "link",
     data() {
       return {
-        // 标签列表
-        tagList: [],
+        linkList: [],
         skeleton: new Array(10),
-        loading: true,
+        loading : true,
       }
     },
     created() {
-      this.axios({
-        method: 'get',
-        url: 'https://api.choyeon.cn/tag/',
-      }).then((response) => {
-        this.tagList = response.data
-        this.loading = false
+      this.axios.get('https://api.choyeon.cn/link/').then((response) => {
+        console.log(response.data)
+        this.$data.linkList = response.data
+        this.$data.loading = false
       })
     }
   }
 </script>
 
 <style scoped>
-  .skeleton-tag {
+  .skeleton-link {
     background: rgb(194, 207, 214);
-    width: 40px;
-    height: 25px;
+    width: 80%;
     transform-origin: left;
+    margin: 5px 0 0 0;
     animation: skeleton-stretch .5s linear infinite alternate;
   }
 
@@ -81,5 +76,4 @@
     animation-duration: .6s; /*动画持续时间*/
     -webkit-animation: fade-in .6s; /*针对webkit内核*/
   }
-
 </style>

@@ -1,51 +1,45 @@
 <template>
-  <div class="tag">
-    <br>
-    <Card>
-      <p slot="title">
-        <Icon type="md-pricetags" color="#fd7792"/>
-        标签
-      </p>
-      <p v-show="loading">
-        <Tag class="skeleton-tag" v-for="i in skeleton" :key="i"></Tag>
-      </p>
-      <div class="wrapper">
-        <p v-show="!loading">
-          <tag color="primary" v-for="tag in tagList" :key="tag.id">{{tag.name}}</tag>
-        </p>
-      </div>
-    </Card>
-  </div>
+  <Card>
+    <p slot="title">
+      <Icon type="md-apps" color="#fd7792"/>
+      分类
+    </p>
+    <CellGroup v-show="!show">
+    <Cell class="skeleton-category" v-for="i in skeleton" :key="i"/>
+    </CellGroup>
+    <CellGroup v-show="show">
+      <Cell class="wrapper" :title="category.name" v-for="category in categoryList" :to="'/category/'+category.id" :keys="category.id"/>
+    </CellGroup>
+  </Card>
 </template>
+
 <script>
   export default {
-    name: "TagCard",
+    name: "categoryList",
     data() {
       return {
-        // 标签列表
-        tagList: [],
+        categoryList: [],
         skeleton: new Array(10),
         loading: true,
       }
     },
     created() {
-      this.axios({
-        method: 'get',
-        url: 'https://api.choyeon.cn/tag/',
-      }).then((response) => {
-        this.tagList = response.data
-        this.loading = false
+      //
+      // 向后端请求
+      this.axios.get('https://api.choyeon.cn/category/').then((response) => {
+        this.categoryList = response.data;
+        this.loading = false;
       })
-    }
+    },
   }
 </script>
 
 <style scoped>
-  .skeleton-tag {
+  .skeleton-category {
     background: rgb(194, 207, 214);
-    width: 40px;
-    height: 25px;
+    width: 80%;
     transform-origin: left;
+    margin: 5px 0 0 0;
     animation: skeleton-stretch .5s linear infinite alternate;
   }
 
@@ -81,5 +75,4 @@
     animation-duration: .6s; /*动画持续时间*/
     -webkit-animation: fade-in .6s; /*针对webkit内核*/
   }
-
 </style>
