@@ -1,15 +1,16 @@
 
+
 export default {
   mode: 'universal',
   /*
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || 'HareBlog - Python，Javascript，Vue，Django 陈加明的博客',
+    title: 'HareBlog - Python，Javascript，Vue，Django 陈加明的博客',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || 'Django、Vue、Windows、macOS技术分享' }
+      { hid: 'description', name: 'description', content: 'Django、Vue、Windows、macOS技术分享' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -29,7 +30,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/iview'
+    '@/plugins/iview',
+    '@/plugins/axios'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -45,6 +47,11 @@ export default {
   ** Build configuration
   */
   build: {
+    loaders:{
+      less:{
+        javascriptEnabled:true,
+      }
+    },
     /*
     ** You can extend webpack config here
     */
